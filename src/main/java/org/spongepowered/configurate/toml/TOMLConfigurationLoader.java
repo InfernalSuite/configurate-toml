@@ -110,15 +110,11 @@ public class TOMLConfigurationLoader extends AbstractConfigurationLoader<Comment
     @Override
     protected void loadInternal(CommentedConfigurationNode node, BufferedReader reader) throws ParsingException {
         Toml toml = new Toml().read(reader);
-        try {
-            readObject(toml.toMap(), node);
-        } catch (SerializationException e) {
-            e.printStackTrace();
-        }
+        readObject(toml.toMap(), node);
     }
 
     @SuppressWarnings("unchecked")
-    private static void readObject(Map<String, Object> from, ConfigurationNode to) throws SerializationException {
+    private static void readObject(Map<String, Object> from, ConfigurationNode to) {
         for (Map.Entry<String, Object> entry : from.entrySet()) {
             ConfigurationNode node = to.node(entry.getKey().replace("\"", ""));
             Object value = entry.getValue();
@@ -132,11 +128,11 @@ public class TOMLConfigurationLoader extends AbstractConfigurationLoader<Comment
                     if (element instanceof Map) {
                         readObject((Map<String, Object>) element, listNode);
                     } else {
-                        listNode.set(element);
+                        listNode.raw(element);
                     }
                 }
             } else {
-                node.set(value);
+                node.raw(value);
             }
         }
     }
