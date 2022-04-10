@@ -3,15 +3,11 @@ package org.spongepowered.configurate.toml;
 import com.moandjiezana.toml.Toml;
 import com.moandjiezana.toml.TomlWriter;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.spongepowered.configurate.CommentedConfigurationNode;
-import org.spongepowered.configurate.ConfigurateException;
-import org.spongepowered.configurate.ConfigurationNode;
-import org.spongepowered.configurate.ConfigurationOptions;
+import org.spongepowered.configurate.*;
 import org.spongepowered.configurate.loader.AbstractConfigurationLoader;
 import org.spongepowered.configurate.loader.CommentHandler;
 import org.spongepowered.configurate.loader.CommentHandlers;
 import org.spongepowered.configurate.loader.ParsingException;
-import org.spongepowered.configurate.serialize.SerializationException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +16,7 @@ import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.*;
 
-public class TOMLConfigurationLoader extends AbstractConfigurationLoader<CommentedConfigurationNode> {
+public class TOMLConfigurationLoader extends AbstractConfigurationLoader<BasicConfigurationNode> {
 
     public static class Builder extends AbstractConfigurationLoader.Builder<Builder, TOMLConfigurationLoader> {
         private int keyIndent = 0;
@@ -108,7 +104,7 @@ public class TOMLConfigurationLoader extends AbstractConfigurationLoader<Comment
     }
 
     @Override
-    protected void loadInternal(CommentedConfigurationNode node, BufferedReader reader) throws ParsingException {
+    protected void loadInternal(BasicConfigurationNode node, BufferedReader reader) throws ParsingException {
         Toml toml = new Toml().read(reader);
         readObject(toml.toMap(), node);
     }
@@ -175,7 +171,7 @@ public class TOMLConfigurationLoader extends AbstractConfigurationLoader<Comment
     }
 
     @Override
-    public CommentedConfigurationNode createNode(@NonNull ConfigurationOptions options) {
+    public BasicConfigurationNode createNode(@NonNull ConfigurationOptions options) {
         Set<Class<?>> types = new HashSet<>();
         types.add(List.class);
         types.add(Map.class);
@@ -188,6 +184,6 @@ public class TOMLConfigurationLoader extends AbstractConfigurationLoader<Comment
         types.add(Instant.class);
         types.add(Date.class);
         options = options.nativeTypes(types);
-        return CommentedConfigurationNode.root(options);
+        return BasicConfigurationNode.root(options);
     }
 }
