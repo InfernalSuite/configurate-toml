@@ -18,6 +18,8 @@ import java.util.*;
 
 public class TOMLConfigurationLoader extends AbstractConfigurationLoader<BasicConfigurationNode> {
 
+    public static @NonNull Builder builder() { return new Builder(); }
+
     public static class Builder extends AbstractConfigurationLoader.Builder<Builder, TOMLConfigurationLoader> {
         private int keyIndent = 0;
         private int tableIndent = 0;
