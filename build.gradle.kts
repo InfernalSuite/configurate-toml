@@ -4,7 +4,7 @@ plugins {
 }
 
 group "org.thoriumcube.configurate"
-version "1.0.0"
+version "4.1.2"
 
 repositories {
     mavenCentral()
