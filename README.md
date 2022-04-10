@@ -8,6 +8,10 @@ The version number for configurate-toml will track the version of configurate-co
 ##### Configurate 3.7
 If you're on configurate-core v3.7, please use Luck's configurate-toml extension. See credits below, or see: https://mvnrepository.com/artifact/me.lucko.configurate/configurate-toml/3.7
 
+## Support
+
+Feel free to open an issue, or hop into our Discord and chat with us: https://discord.gg/h5NsHDhZ2B
+
 ## Credits
 
 All credits for this code go to Luck, who developed the original configurate-toml extension: https://github.com/lucko/configurate-toml
