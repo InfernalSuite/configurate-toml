@@ -13,7 +13,7 @@ repositories {
 
 dependencies {
     compileOnly("org.spongepowered:configurate-core:4.1.2")
-    compileOnly("com.moandjiezana.toml:toml4j:0.7.2")
+    implementation("com.moandjiezana.toml:toml4j:0.7.2")
 
     testCompileOnly("org.junit.jupiter:junit-jupiter-api:5.8.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
@@ -37,14 +37,16 @@ java {
     toolchain {
         toolchain.languageVersion.set(JavaLanguageVersion.of(8))
     }
+    withSourcesJar()
+    withJavadocJar()
 }
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = project.group as String?
-            artifactId = project.name
-            version = project.version as String?
+            groupId = "org.thoriumcube.configurate"
+            artifactId = "configurate-toml"
+            version = "4.1.2"
 
             from(components["java"])
 
@@ -101,5 +103,6 @@ publishing {
 }
 
 signing {
+    useGpgCmd()
     sign(publishing.publications["maven"])
 }
