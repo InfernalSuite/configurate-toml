@@ -108,7 +108,8 @@ public class TOMLConfigurationLoader extends AbstractConfigurationLoader<BasicCo
     @Override
     protected void loadInternal(BasicConfigurationNode node, BufferedReader reader) throws ParsingException {
         Toml toml = new Toml().read(reader);
-        readObject(toml.toMap(), node);
+        Map<String, Object> map = toml.toMap();
+        readObject(map, node);
     }
 
     @SuppressWarnings("unchecked")
@@ -118,9 +119,9 @@ public class TOMLConfigurationLoader extends AbstractConfigurationLoader<BasicCo
             Object value = entry.getValue();
 
             if (value instanceof Map) {
-                readObject((Map<String, Object>) value, to);
+                readObject((Map<String, Object>) value, node);
             } else if (value instanceof List) {
-                List<?> list = node.childrenList();
+                List<?> list = (List<?>) value;
                 for (Object element : list) {
                     ConfigurationNode listNode = node.appendListNode();
                     if (element instanceof Map) {
