@@ -5,7 +5,7 @@ plugins {
 }
 
 group "org.thoriumcube.configurate"
-version "4.1.2"
+version "4.1.3"
 
 repositories {
     mavenCentral()
@@ -44,9 +44,9 @@ java {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "org.thoriumcube.configurate"
-            artifactId = "configurate-toml"
-            version = "4.1.2"
+            groupId = "${project.group}"
+            artifactId = project.name
+            version = "${project.version}"
 
             from(components["java"])
 
